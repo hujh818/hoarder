@@ -255,7 +255,11 @@ async function inferTags(
   }
 
   try {
+    logger.info(`response_from_model: ${response.response}`);
+    logger.info(`response_from_model: ${JSON.parse(response.response)}`);
+
     let tags = openAIResponseSchema.parse(JSON.parse(response.response)).tags;
+    logger.info(`${tags}`);
     logger.info(
       `[inference][${jobId}] Inferring tag for bookmark "${bookmark.id}" used ${response.totalTokens} tokens and inferred: ${tags}`,
     );
@@ -269,7 +273,7 @@ async function inferTags(
       }
       return tag.trim();
     });
-
+    logger.info(`${tags}`);
     return tags;
   } catch (e) {
     const responseSneak = response.response.substr(0, 20);
