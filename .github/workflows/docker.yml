@@ -47,7 +47,7 @@ jobs:
           target: ${{ matrix.target }}
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ghcr.io/hujh818/${{ matrix.package }}:latest,ghcr.io/mohamedbassem/${{ matrix.package }}:latest
+          tags: ghcr.io/hujh818/${{ matrix.package }}:latest
           cache-from: type=registry,ref=ghcr.io/hujh818/hoarder-build-cache:${{ matrix.target }}
           cache-to: type=registry,mode=max,ref=ghcr.io/hujh818/hoarder-build-cache:${{ matrix.target }}
 
@@ -61,6 +61,6 @@ jobs:
           target: ${{ matrix.target }}
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ghcr.io/hujh818/${{ matrix.package }}:${{ github.event.release.name }},ghcr.io/hujh818/${{ matrix.package }}:release,ghcr.io/mohamedbassem/${{ matrix.package }}:${{ github.event.release.name }},ghcr.io/mohamedbassem/${{ matrix.package }}:release
+          tags: ghcr.io/hujh818/${{ matrix.package }}:${{ github.event.release.name }},ghcr.io/hujh818/${{ matrix.package }}:release
           cache-from: type=registry,ref=ghcr.io/hujh818/hoarder-build-cache:${{ matrix.target }}
           cache-to: type=registry,mode=max,ref=ghcr.io/hujh818/hoarder-build-cache:${{ matrix.target }}
