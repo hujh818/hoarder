@@ -47,12 +47,9 @@ class OpenAIInferenceClient implements InferenceClient {
       model: serverConfig.inference.textModel,
       response_format: { type: "json_object" },
     });
-    logger.info(`${prompt}`)
-    logger.info(`${serverConfig.inference.openAIApiKey}`)
-    logger.info(`${serverConfig.inference.openAIBaseUrl}`)
-    logger.info(`${serverConfig.inference.textModel}`)
     logger.info(`Response from OpenAI: ${chatCompletion}`);
     const response = chatCompletion.choices[0].message.content;
+    logger.info(`${response}`);
     if (!response) {
       throw new Error(`Got no message content from OpenAI`);
     }
