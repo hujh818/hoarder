@@ -48,6 +48,17 @@ class OpenAIInferenceClient implements InferenceClient {
       response_format: { type: "json_object" },
     });
     logger.info(`Response from OpenAI: ${chatCompletion}`);
+    logger.error("chatcompletion: " + JSON.stringify(chatCompletion));
+    logger.error("chatcompletion.choices: " + JSON.stringify(chatCompletion.choices));
+    logger.error("chatCompletion.choices[0]: " + JSON.stringify(chatCompletion.choices[0]));
+    logger.error("chatCompletion.choices[0].message: " + JSON.stringify(chatCompletion.choices[0].message));
+    logger.error("chatCompletion.choices[0].message.content: " + JSON.stringify(chatCompletion.choices[0].message.content));
+    console.error("chatcompletion: " + JSON.stringify(chatCompletion));
+    console.error("chatcompletion.choices: " + JSON.stringify(chatCompletion.choices));
+    console.error("chatCompletion.choices[0]: " + JSON.stringify(chatCompletion.choices[0]));
+    console.error("chatCompletion.choices[0].message: " + JSON.stringify(chatCompletion.choices[0].message));
+    console.error("chatCompletion.choices[0].message.content: " + JSON.stringify(chatCompletion.choices[0].message.content));
+
     const response = chatCompletion.choices[0].message.content;
     logger.info(`${response}`);
     if (!response) {
