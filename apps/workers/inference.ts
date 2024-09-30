@@ -47,13 +47,9 @@ class OpenAIInferenceClient implements InferenceClient {
       model: serverConfig.inference.textModel,
       response_format: { type: "json_object" },
     });
-    logger.error(typeof chatCompletion);
-    logger.error("chatcompletion: " + JSON.stringify(chatCompletion));
     console.error(typeof chatCompletion);
     console.error("chatcompletion: " + JSON.stringify(chatCompletion));
-    logger.error("chatcompletion.choices: " + JSON.stringify(chatCompletion.choices));
     console.error("chatcompletion.choices: " + JSON.stringify(chatCompletion.choices));
-    logger.info(`${chatCompletion.data.choices}`);
     const response = chatCompletion.choices[0].message.content;
     
     if (!response) {
