@@ -40,22 +40,31 @@ class OpenAIInferenceClient implements InferenceClient {
       baseURL: serverConfig.inference.openAIBaseUrl,
     });
   }
-
   async inferFromText(prompt: string): Promise<InferenceResponse> {
-    const chatCompletion = await this.openAI.chat.completions.create({
-      messages: [{ role: "system", content: prompt }],
-      model: serverConfig.inference.textModel,
-      response_format: { type: "json_object" },
-    });
-    console.error(typeof chatCompletion);
-    console.error("chatcompletion: " + JSON.stringify(chatCompletion));
-    console.error("chatcompletion.choices: " + JSON.stringify(chatCompletion.choices));
-    const response = chatCompletion.choices[0].message.content;
-    
-    if (!response) {
-      throw new Error(`Got no message content from OpenAI`);
-    }
-    return { response, totalTokens: chatCompletion.usage?.total_tokens };
+      let chatCompletion = await this.openAI.chat.completions.create({
+          messages: [{ role: "system", content: prompt }],
+          model: serverConfig.inference.textModel,
+          response_format: { type: "json_object" },
+      });
+
+      console.error("typeof chatCompletion: " + typeof chatCompletion);
+
+      if (typeof chatCompletion === "string") {
+          chatCompletion = JSON.parse(chatCompletion);
+      }
+  
+      console.error("typeof chatCompletion: " + typeof chatCompletion);
+      console.error("chatCompletion: " + JSON.stringify(chatCompletion));
+      console.error("chatCompletion.choices: " + JSON.stringify(chatCompletion.choices));
+      console.error("chatCompletion.choices[0]: " + JSON.stringify(chatCompletion.choices[0]));
+      console.error("chatCompletion.choices[0].message: " + JSON.stringify(chatCompletion.choices[0].message));
+      console.error("chatCompletion.choices[0].message.content: " + JSON.stringify(chatCompletion.choices[0].message.content));
+  
+      const response = chatCompletion.choices[0].message.content;
+      if (!response) {
+          throw new Error(`Got no message content from OpenAI`);
+      }
+      return { response, totalTokens: chatCompletion.usage?.total_tokens };
   }
 
   async inferFromImage(
